@@ -1412,6 +1412,16 @@ DQ
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
+                                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zNW-Gm-Ebm">
+                                                    <rect key="frame" x="285" y="18" width="34" height="32"/>
+                                                    <buttonCell key="cell" type="check" title="C" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="t7N-Uc-BwY">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="system"/>
+                                                    </buttonCell>
+                                                    <connections>
+                                                        <action selector="change_Num:" target="XfG-lQ-9wD" id="PPs-4a-LU4"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </view>
                                         <font key="titleFont" metaFont="system" size="15"/>
@@ -1623,6 +1633,7 @@ DQ
                         <outlet property="B_LOG_TF" destination="cIe-FZ-my7" id="bqM-Xk-Tvw"/>
                         <outlet property="C_FailItem" destination="xP7-m8-KHu" id="xhb-zh-HCf"/>
                         <outlet property="C_LOG_TF" destination="H7V-oo-oZe" id="M4F-aa-tJo"/>
+                        <outlet property="Choose_Num" destination="zNW-Gm-Ebm" id="TAq-8P-Z3W"/>
                         <outlet property="Choose_SN" destination="A74-wP-M2P" id="q6f-iC-FNr"/>
                         <outlet property="ComfirmButton" destination="05S-Sb-V72" id="6HY-Y4-cjT"/>
                         <outlet property="DUT_Result1_TF" destination="dqa-kR-kT3" id="dOF-54-Yyd"/>

@@ -100,6 +100,10 @@ NSString * param_Name = @"Param";
     IBOutlet NSTextView *C_FailItem;
     IBOutlet NSTextView *D_FailItem;
     IBOutlet NSButton *Choose_SN;
+    
+    IBOutlet NSButton *Choose_Num;
+    
+    
     IBOutlet NSTextField *Product_NUM;
     IBOutlet NSButton *choose_dut1;
     IBOutlet NSButton *choose_dut2;
@@ -193,10 +197,7 @@ NSString * param_Name = @"Param";
     NSString            * LostData_path;  //断网存储的数据
     
     //SN的值
-    NSString            * SN1_String;
-    NSString            * SN2_String;
-    NSString            * SN3_String;
-    NSString            * SN4_String;
+    NSString            * SN_String;
     
     //同二维码上传的次数和总数
     int                 presentCount;
@@ -219,6 +220,9 @@ NSString * param_Name = @"Param";
     [super viewDidLoad];
     //***********************变量定义区***********************//
     index    = 0;
+    
+    index    = 3;
+    
     passNum  = 0;
     totalNum = 0;
     nullNum  = 0;
@@ -358,29 +362,44 @@ NSString * param_Name = @"Param";
     if (Choose_SN.state) {
         
         Scan_SN_TF.editable =YES;
-        Product_NUM.editable = YES;
         Scan_SN_TF.stringValue=@"";
         NS_TF1.stringValue =@"";
         NS_TF2.stringValue =@"";
         NS_TF3.stringValue =@"";
         NS_TF4.stringValue =@"";
-        [Scan_SN_TF becomeFirstResponder];
-        [Product_NUM setStringValue:@""];
+       [Scan_SN_TF becomeFirstResponder];
         index = 3;
     }else
     {
         Scan_SN_TF.editable  = NO;
+        
+       
+    }
+}
+
+- (IBAction)change_Num:(id)sender {
+    
+    
+    if (Choose_Num.state) {
+        
+        Product_NUM.editable = YES;
+        [Product_NUM setStringValue:@""];
+        index = 7;
+    }
+    else
+    {
         Product_NUM.editable = NO;
+        
         //清零
         presentCount = 1;
         totalCount = [Product_NUM.stringValue intValue];
         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",totalCount] forKey:@"totalCount"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-
-    
-    
 }
+
+
+
 
 
 - (IBAction)change_Action:(id)sender {
@@ -808,102 +827,11 @@ NSString * param_Name = @"Param";
             
             [NSThread sleepForTimeInterval:0.3];
             
-            if (param.isDebug) {//debug模式
-                [self UpdateTextView:@"index=4,Debug模式:给SN赋值\n22222222222222222" andClear:NO andTextView:Log_View];
-                
-                [NSThread sleepForTimeInterval:0.5];
-                sfcManager.station_id = fixtureID;
-                
-                if (choose_dut1.state) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [NS_TF1 setStringValue:Scan_SN_TF.stringValue];
-                        SN1_String = Scan_SN_TF.stringValue;
-                    });
-                    
-                    
-                }
-                if (choose_dut2.state) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [NS_TF2 setStringValue:Scan_SN_TF.stringValue];
-                        
-                        SN2_String = Scan_SN_TF.stringValue;
-                    });
-                    
-                }
-                if (choose_dut3.state) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [NS_TF3 setStringValue:Scan_SN_TF.stringValue];
-                        
-                        SN3_String = Scan_SN_TF.stringValue;
-                    });
-                    
-                    
-                }
-                if (choose_dut4.state) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [NS_TF4 setStringValue:Scan_SN_TF.stringValue];
-                        SN4_String = Scan_SN_TF.stringValue;
-                    });
-                    
-                }
-                
-                index = 7;
-            }
-            else
-            {
-                [NSThread sleepForTimeInterval:0.5];
-                sfcManager.station_id = fixtureID;
-                
-                if (choose_dut1.state) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                         [NS_TF1 setStringValue:Scan_SN_TF.stringValue];
-                         SN1_String = Scan_SN_TF.stringValue;
-                    });
-                    
-                   
-                }
-                if (choose_dut2.state) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [NS_TF2 setStringValue:Scan_SN_TF.stringValue];
-                        
-                        SN2_String = Scan_SN_TF.stringValue;
-                    });
-                   
-                }
-                if (choose_dut3.state) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                          [NS_TF3 setStringValue:Scan_SN_TF.stringValue];
-                        
-                          SN3_String = Scan_SN_TF.stringValue;
-                    });
-                    
-                 
-                }
-                if (choose_dut4.state) {
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [NS_TF4 setStringValue:Scan_SN_TF.stringValue];
-                        SN4_String = Scan_SN_TF.stringValue;
-                    });
-                  
-                }
-                
-                index = 7;
-            }
+             sfcManager.station_id = fixtureID;
+            
+             index = 7;
             
         }
-        
-        
-        
         
 //#pragma mark-------------//index = 3,检测SN1的输入值
 //        if (index == 3) {
@@ -1122,7 +1050,7 @@ NSString * param_Name = @"Param";
                 
                 [Status_TF setStringValue:@"index = 7,点击键盘或者鼠标"];
             });
-            index = 1000;
+            index = 8;
 
             //=============判断config
             if (config_change.state) {
@@ -1160,6 +1088,19 @@ NSString * param_Name = @"Param";
                 
                 index = 7;
             }
+            //=============判断SN数量
+            if (Choose_Num.state) {
+                
+                NSLog(@"Please cancell S Button");
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    //startbutton.enabled = YES;
+                    [Status_TF setStringValue:@"index=7,Cancell S Button"];
+                });
+                
+                index = 7;
+            }
+            
         }
         
 #pragma mark-------------//index=8,双击start按钮/或者点击界面上的start按钮
@@ -1258,7 +1199,15 @@ NSString * param_Name = @"Param";
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
+                //不可点击
                 startbutton.enabled = NO;
+                change_OpID.enabled   = NO;
+                config_change.enabled = NO;
+                Choose_Num.enabled = NO;
+                Choose_SN.enabled = NO;
+                singlebutton.enabled = NO;
+                
+                
 //              Operator_TF.editable = NO;
                 [tab1 ClearTable];
                 [DUT_Result1_TF setStringValue:@""];
@@ -1292,12 +1241,12 @@ NSString * param_Name = @"Param";
                     [Status_TF setStringValue:@"fix_A_num=101,A测试结束，点亮灯"];
                 });
                 
-                [self LightAndShowResultWithFix:notiString_A withSN:SN1_String TestingFixStr:testingFixStr Dictionary:A_resultDic PresentIndex:presentCount  TotalIndex:totalCount];
+                [self LightAndShowResultWithFix:notiString_A withSN:SN_String TestingFixStr:testingFixStr Dictionary:A_resultDic PresentIndex:presentCount  TotalIndex:totalCount];
                 
             }
             else
             {
-                [self LightAndShowResultWithFix:notiString_A withSN:SN1_String TestingFixStr:testingFixStr Dictionary:A_resultDic PresentIndex:presentCount  TotalIndex:totalCount];
+                [self LightAndShowResultWithFix:notiString_A withSN:SN_String TestingFixStr:testingFixStr Dictionary:A_resultDic PresentIndex:presentCount  TotalIndex:totalCount];
                 
             }
             
@@ -1317,12 +1266,12 @@ NSString * param_Name = @"Param";
                     [Status_TF setStringValue:@"fix_B_num=102,B测试结束，点亮灯"];
                 });
                 
-                [self LightAndShowResultWithFix:notiString_B withSN:SN2_String TestingFixStr:testingFixStr Dictionary:B_resultDic PresentIndex:presentCount TotalIndex:totalCount];
+                [self LightAndShowResultWithFix:notiString_B withSN:SN_String TestingFixStr:testingFixStr Dictionary:B_resultDic PresentIndex:presentCount TotalIndex:totalCount];
             }
             else
             {
                 
-                [self LightAndShowResultWithFix:notiString_B withSN:SN2_String TestingFixStr:testingFixStr Dictionary:B_resultDic PresentIndex:presentCount TotalIndex:totalCount];
+                [self LightAndShowResultWithFix:notiString_B withSN:SN_String TestingFixStr:testingFixStr Dictionary:B_resultDic PresentIndex:presentCount TotalIndex:totalCount];
             }
             
             
@@ -1342,11 +1291,11 @@ NSString * param_Name = @"Param";
                     [Status_TF setStringValue:@"fix_C_num=103,C测试结束，点亮灯"];
                 });
                 
-                [self LightAndShowResultWithFix:notiString_C withSN:SN3_String TestingFixStr:testingFixStr Dictionary:C_resultDic PresentIndex:presentCount TotalIndex:totalCount];
+                [self LightAndShowResultWithFix:notiString_C withSN:SN_String TestingFixStr:testingFixStr Dictionary:C_resultDic PresentIndex:presentCount TotalIndex:totalCount];
             }
             else
             {
-                [self LightAndShowResultWithFix:notiString_C withSN:SN3_String TestingFixStr:testingFixStr Dictionary:C_resultDic PresentIndex:presentCount TotalIndex:totalCount];
+                [self LightAndShowResultWithFix:notiString_C withSN:SN_String TestingFixStr:testingFixStr Dictionary:C_resultDic PresentIndex:presentCount TotalIndex:totalCount];
             }
         }
         
@@ -1361,11 +1310,11 @@ NSString * param_Name = @"Param";
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [Status_TF setStringValue:@"fix_D_num=104,D测试结束，点亮灯"];
                 });
-                  [self LightAndShowResultWithFix:notiString_D withSN:SN4_String TestingFixStr:testingFixStr Dictionary:D_resultDic PresentIndex:presentCount TotalIndex:totalCount];
+                  [self LightAndShowResultWithFix:notiString_D withSN:SN_String TestingFixStr:testingFixStr Dictionary:D_resultDic PresentIndex:presentCount TotalIndex:totalCount];
             }
             else
             {
-                 [self LightAndShowResultWithFix:notiString_D withSN:SN4_String TestingFixStr:testingFixStr Dictionary:D_resultDic PresentIndex:presentCount TotalIndex:totalCount];
+                 [self LightAndShowResultWithFix:notiString_D withSN:SN_String TestingFixStr:testingFixStr Dictionary:D_resultDic PresentIndex:presentCount TotalIndex:totalCount];
             }
             
         }
@@ -1385,8 +1334,13 @@ NSString * param_Name = @"Param";
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [TestCount_TF setStringValue:[NSString stringWithFormat:@"%d/%d",passNum,totalNum]];
-                    startbutton.enabled = YES;
+                    startbutton.enabled = NO;
                     ComfirmButton.enabled = YES;
+                    change_OpID.enabled   = YES;
+                    config_change.enabled = YES;
+                    Choose_Num.enabled    = YES;
+                    Choose_SN.enabled     = YES;
+                    singlebutton.enabled  = YES;
                     
                     //清空所有NStextView的值
                     [self UpdateTextView:@"" andClear:YES andTextView:A_LOG_TF];
@@ -1422,6 +1376,8 @@ NSString * param_Name = @"Param";
                 {
                     index = 2;
                 }
+                
+                 [self updateFoam];
             }
             else
             {
@@ -1447,6 +1403,9 @@ NSString * param_Name = @"Param";
                         [TestCount_TF setStringValue:[NSString stringWithFormat:@"%d/%d",passNum,totalNum]];
                         startbutton.enabled = NO;
                         ComfirmButton.enabled = YES;
+                        change_OpID.enabled   = YES;
+                        config_change.enabled = YES;
+                        singlebutton.enabled  = YES;
                         
                         //清空所有NStextView的值
                         [self UpdateTextView:@"" andClear:YES andTextView:A_LOG_TF];
@@ -1802,6 +1761,12 @@ NSString * param_Name = @"Param";
         if (tf.tag == 100) {
             
             tf.editable = NO;
+            NS_TF1.stringValue = tf.stringValue;
+            NS_TF2.stringValue = tf.stringValue;
+            NS_TF3.stringValue = tf.stringValue;
+            NS_TF4.stringValue = tf.stringValue;
+            
+            SN_String = tf.stringValue;
         }
         else
         {
@@ -1971,10 +1936,10 @@ NSString * param_Name = @"Param";
                 [Status_TF setStringValue:[NSString stringWithFormat:@"index = %d:SN%d不检验",testIndex,snIndex]];
             });
             
-            if (snIndex==1)SN1_String = tf.stringValue;
-            if (snIndex==2)SN2_String = tf.stringValue;
-            if (snIndex==3)SN3_String = tf.stringValue;
-            if (snIndex==4)SN4_String = tf.stringValue;
+//            if (snIndex==1)SN_String = tf.stringValue;
+//            if (snIndex==2)SN2_String = tf.stringValue;
+//            if (snIndex==3)SN3_String = tf.stringValue;
+//            if (snIndex==4)SN4_String = tf.stringValue;
         }
         else
         {
@@ -1987,10 +1952,10 @@ NSString * param_Name = @"Param";
                 index = testIndex+1;;
                 [txtInshare TXT_Write:[NSString stringWithFormat:@"%@:主流程-->SN=%@\n",[[GetTimeDay shareInstance] getFileTime],[NSString stringWithFormat:@"SN%d 检验OK",snIndex]]];
                 
-                if (snIndex==1)SN1_String = tf.stringValue;
-                if (snIndex==2)SN2_String = tf.stringValue;
-                if (snIndex==3)SN3_String = tf.stringValue;
-                if (snIndex==4)SN4_String = tf.stringValue;
+//                if (snIndex==1)SN1_String = tf.stringValue;
+//                if (snIndex==2)SN2_String = tf.stringValue;
+//                if (snIndex==3)SN3_String = tf.stringValue;
+//                if (snIndex==4)SN4_String = tf.stringValue;
                
             }
             else
@@ -2037,10 +2002,10 @@ NSString * param_Name = @"Param";
         
         index = testIndex+1;;
         
-        if (snIndex==1)SN1_String = tf.stringValue;
-        if (snIndex==2)SN2_String = tf.stringValue;
-        if (snIndex==3)SN3_String = tf.stringValue;
-        if (snIndex==4)SN4_String = tf.stringValue;
+//        if (snIndex==1)SN1_String = tf.stringValue;
+//        if (snIndex==2)SN2_String = tf.stringValue;
+//        if (snIndex==3)SN3_String = tf.stringValue;
+//        if (snIndex==4)SN4_String = tf.stringValue;
        
     }
     else
@@ -2230,11 +2195,7 @@ NSString * param_Name = @"Param";
         
         [Forum_TF setStringValue:[NSString stringWithFormat:@"%d/%@",Test_Foam_Num,param.FoamNum]];
     });
-
-
-
-
-
+    
 }
 
 
