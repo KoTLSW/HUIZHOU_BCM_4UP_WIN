@@ -220,9 +220,6 @@ NSString * param_Name = @"Param";
     [super viewDidLoad];
     //***********************变量定义区***********************//
     index    = 0;
-    
-    index    = 3;
-    
     passNum  = 0;
     totalNum = 0;
     nullNum  = 0;
@@ -367,7 +364,7 @@ NSString * param_Name = @"Param";
         NS_TF2.stringValue =@"";
         NS_TF3.stringValue =@"";
         NS_TF4.stringValue =@"";
-       [Scan_SN_TF becomeFirstResponder];
+        [Scan_SN_TF becomeFirstResponder];
         index = 3;
     }else
     {
@@ -786,35 +783,22 @@ NSString * param_Name = @"Param";
                 [Status_TF setStringValue:@"index=3,输入或者扫SN"];
             });
             if (param.isDebug) {//debug模式
-                [self UpdateTextView:@"index=2,Debug模式:给SN赋值\n22222222222222222" andClear:NO andTextView:Log_View];
                 
-                while (YES) {
-                    
-                    [NSThread sleepForTimeInterval:0.2];
-                    
-                    if ([Scan_SN_TF.stringValue length] == [num_PopButton.titleOfSelectedItem intValue]) {
-                        
-                        break;
-                        
-                    }
-                }
+                [self UpdateTextView:@"index=2,Debug模式:给SN赋值\n22222222222222222" andClear:NO andTextView:Log_View];
 
-                index = 4;
+                [self ShowcompareNumwithTextField:Scan_SN_TF Index:index SnIndex:1];
             }
             else
             {
-                while (YES) {
+               if (isUpLoadSFC) {
                     
-                     [NSThread sleepForTimeInterval:0.2];
-                    
-                    if ([Scan_SN_TF.stringValue length] == [num_PopButton.titleOfSelectedItem intValue]) {
-                        
-                        break;
-                        
-                    }
+                    [self compareSNToServerwithTextField:Scan_SN_TF Index:index SnIndex:1];
                 }
-            
-                index = 4;
+                else
+                {
+                    [self ShowcompareNumwithTextField:Scan_SN_TF Index:index SnIndex:1];
+                
+                }
             }
         
         }
@@ -828,7 +812,11 @@ NSString * param_Name = @"Param";
             [NSThread sleepForTimeInterval:0.3];
             
              sfcManager.station_id = fixtureID;
-            
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [Status_TF setBackgroundColor:[NSColor greenColor]];
+                  Choose_Num.enabled    = YES;
+                  Choose_SN.enabled     = YES;
+             });
              index = 7;
             
         }
@@ -1206,8 +1194,6 @@ NSString * param_Name = @"Param";
                 Choose_Num.enabled = NO;
                 Choose_SN.enabled = NO;
                 singlebutton.enabled = NO;
-                
-                
 //              Operator_TF.editable = NO;
                 [tab1 ClearTable];
                 [DUT_Result1_TF setStringValue:@""];
@@ -1321,10 +1307,6 @@ NSString * param_Name = @"Param";
         
 #pragma mark-------------//index=105,所有软件测试结束
         if (index == 105) {
-            //========定时器结束========
-            [mkTimer endTimer];
-            ct_cnt = 0;
-            
             
             [NSThread sleepForTimeInterval:0.5];
             if (param.isDebug) {
@@ -1338,8 +1320,6 @@ NSString * param_Name = @"Param";
                     ComfirmButton.enabled = YES;
                     change_OpID.enabled   = YES;
                     config_change.enabled = YES;
-                    Choose_Num.enabled    = YES;
-                    Choose_SN.enabled     = YES;
                     singlebutton.enabled  = YES;
                     
                     //清空所有NStextView的值
@@ -1350,11 +1330,7 @@ NSString * param_Name = @"Param";
                     
                     //设置OP_ID输入框可以输入
                     Operator_TF.enabled = YES;
-                    
                     testnum = 0;
-                    //========定时器结束========
-                    [mkTimer endTimer];
-                    ct_cnt = 0;
                     
                 });
                 
@@ -1383,9 +1359,6 @@ NSString * param_Name = @"Param";
             {
                 [self UpdateTextView:[NSString stringWithFormat:@"index = 105:%@",@"所有测试结束，回到初始状态"] andClear:NO andTextView:Log_View];
                 
-                
-                
-                
                 //发送reset的命令
                 [serialport WriteLine:@"reset"];
                 
@@ -1400,12 +1373,13 @@ NSString * param_Name = @"Param";
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         
-                        [TestCount_TF setStringValue:[NSString stringWithFormat:@"%d/%d",passNum,totalNum]];
+                       [TestCount_TF setStringValue:[NSString stringWithFormat:@"%d/%d",passNum,totalNum]];
                         startbutton.enabled = NO;
                         ComfirmButton.enabled = YES;
                         change_OpID.enabled   = YES;
                         config_change.enabled = YES;
                         singlebutton.enabled  = YES;
+                       
                         
                         //清空所有NStextView的值
                         [self UpdateTextView:@"" andClear:YES andTextView:A_LOG_TF];
@@ -1422,8 +1396,7 @@ NSString * param_Name = @"Param";
                     });
                     
                     //测试结束时，发送结束通知
-                   // [[NSNotificationCenter defaultCenter] postNotificationName:@"NSThreadEnd_Notification" object:nil];
-                    
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"NSThreadEnd_Notification" object:nil];
                     [ChooseNumArray removeAllObjects];
                     
                     if (singleTest) {
@@ -1443,6 +1416,11 @@ NSString * param_Name = @"Param";
                     
                     [self updateFoam];
                 }
+                
+                //========定时器结束========
+                [mkTimer endTimer];
+                ct_cnt = 0;
+
                 
                 
             }
@@ -1710,12 +1688,11 @@ NSString * param_Name = @"Param";
     choose_dut3.enabled = NO;
     choose_dut4.enabled = NO;
     ComfirmButton.hidden = YES;
-    
     [ChooseNumArray removeAllObjects];
     
     if (singleTest) {
         
-        index = 3;
+        index = 7;
     }
     if (choose_dut1.state) {
         
@@ -1765,8 +1742,8 @@ NSString * param_Name = @"Param";
             NS_TF2.stringValue = tf.stringValue;
             NS_TF3.stringValue = tf.stringValue;
             NS_TF4.stringValue = tf.stringValue;
-            
             SN_String = tf.stringValue;
+            index = 3;
         }
         else
         {
@@ -1776,9 +1753,7 @@ NSString * param_Name = @"Param";
         
         if (nextTF) {
             
-            
             if (nextTF.tag == 4) {
-                
                 [nextTF setEditable:YES];
                 
             }
@@ -1921,7 +1896,7 @@ NSString * param_Name = @"Param";
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [Status_TF setStringValue:[NSString stringWithFormat:@"index = %d:SN%d Enter OK",testIndex,snIndex]];
-            tf.editable = NO;
+            tf.enabled = NO;
         });
         
         NSString  * startTime = [[GetTimeDay shareInstance] getCurrentDateAndTime];
@@ -1933,51 +1908,51 @@ NSString * param_Name = @"Param";
             [NSThread sleepForTimeInterval:0.1];
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [Status_TF setStringValue:[NSString stringWithFormat:@"index = %d:SN%d不检验",testIndex,snIndex]];
+                [Status_TF setStringValue:[NSString stringWithFormat:@"index = %d:SN不检验",testIndex]];
             });
-            
-//            if (snIndex==1)SN_String = tf.stringValue;
-//            if (snIndex==2)SN2_String = tf.stringValue;
-//            if (snIndex==3)SN3_String = tf.stringValue;
-//            if (snIndex==4)SN4_String = tf.stringValue;
         }
         else
         {
-            if ([testStep StepSFC_CheckUploadSN:YES Option:@"isPassOrNot" testResult:nil startTime:startTime testArgument:nil PresentIndex:presentCount TotalIndex:totalCount]&&isServer)
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [Status_TF setStringValue:[NSString stringWithFormat:@"SN%d 检验OK",snIndex]];
-                });
+            int num = 0;
+            
+            while (YES) {
                 
-                index = testIndex+1;;
-                [txtInshare TXT_Write:[NSString stringWithFormat:@"%@:主流程-->SN=%@\n",[[GetTimeDay shareInstance] getFileTime],[NSString stringWithFormat:@"SN%d 检验OK",snIndex]]];
+                if ([testStep StepSFC_CheckUploadSN:YES Option:@"isPassOrNot" testResult:nil startTime:startTime testArgument:nil PresentIndex:presentCount TotalIndex:totalCount]&&isServer)
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [Status_TF setStringValue:@"SN 检验OK"];
+                    });
+                    
+                    index = testIndex+1;
+                    [txtInshare TXT_Write:[NSString stringWithFormat:@"%@:主流程-->SN=%@\n",[[GetTimeDay shareInstance] getFileTime],@"SN检验OK"]];
+                }
+                else
+                {
+                    
+                    [NSThread sleepForTimeInterval:1.0];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [Status_TF setStringValue:@"上一个工站测试NG"];
+                        [Status_TF setBackgroundColor:[NSColor redColor]];
+                         tf.enabled = YES;
+                    });
+                    num++;
+                    if (num==3) {
+                        
+                        index = testIndex+1;
+                        break;
+                    }
+                    
+                }
                 
-//                if (snIndex==1)SN1_String = tf.stringValue;
-//                if (snIndex==2)SN2_String = tf.stringValue;
-//                if (snIndex==3)SN3_String = tf.stringValue;
-//                if (snIndex==4)SN4_String = tf.stringValue;
-               
             }
-            else
-            {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [tf  setStringValue:@"上一个工站检测NG"];
-                });
-                if (snIndex==1)action1.SNisRight = YES;
-                if (snIndex==2)action2.SNisRight = YES;
-                if (snIndex==3)action3.SNisRight = YES;
-                if (snIndex==4)action4.SNisRight = YES;
-                
-                //通知子线程，重新扫码
-                [[NSNotificationCenter defaultCenter] postNotificationName:kTestAgainNotice object:nil];
-            }
+            
         }
     }
     else
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [Status_TF setStringValue:[NSString stringWithFormat:@"index = %d:SN%d NG,Enter right SN",testIndex,snIndex]];
+            [Status_TF setStringValue:[NSString stringWithFormat:@"index = %d:SN NG,Enter right SN",testIndex]];
         });
         [txtInshare TXT_Write:[NSString stringWithFormat:@"%@:主流程-->SN=%@\n",[[GetTimeDay shareInstance] getFileTime],[NSString stringWithFormat:@"index = %d:SN%d NG,Enter right SN",testIndex,snIndex]]];
         
@@ -1989,8 +1964,6 @@ NSString * param_Name = @"Param";
 #pragma mark---------------正常测试时，无SFC请求时
 -(void)ShowcompareNumwithTextField:(NSTextField *)tf Index:(int)testIndex SnIndex:(int)snIndex
 {
-    
-    
     if ([tf.stringValue length] == [num_PopButton.titleOfSelectedItem intValue]) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -2001,18 +1974,12 @@ NSString * param_Name = @"Param";
         });
         
         index = testIndex+1;;
-        
-//        if (snIndex==1)SN1_String = tf.stringValue;
-//        if (snIndex==2)SN2_String = tf.stringValue;
-//        if (snIndex==3)SN3_String = tf.stringValue;
-//        if (snIndex==4)SN4_String = tf.stringValue;
-       
     }
     else
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [Status_TF setStringValue:[NSString stringWithFormat:@"index = %d:SN%d NG,Enter right SN",testIndex,snIndex]];
+            [Status_TF setStringValue:[NSString stringWithFormat:@"index = %d:SN NG,Enter right SN",testIndex]];
         });
         
     }
