@@ -64,9 +64,6 @@
 		5B13F3E420157F63004C14AE /* Station_Cr_1_Humid.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B13F3D820157F63004C14AE /* Station_Cr_1_Humid.plist */; };
 		5B13F3E620157F63004C14AE /* Station_Cr_2_Humid.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B13F3DA20157F63004C14AE /* Station_Cr_2_Humid.plist */; };
 		5B13F3E820157F63004C14AE /* Station_Cr_3_Humid.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B13F3DC20157F63004C14AE /* Station_Cr_3_Humid.plist */; };
-		5B13F3EA20157F63004C14AE /* Station_Ti_1_Humid.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B13F3DE20157F63004C14AE /* Station_Ti_1_Humid.plist */; };
-		5B13F3EC20157F63004C14AE /* Station_Ti_2_Humid.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B13F3E020157F63004C14AE /* Station_Ti_2_Humid.plist */; };
-		5B13F3EE20157F63004C14AE /* Station_Ti_3_Humid.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B13F3E220157F63004C14AE /* Station_Ti_3_Humid.plist */; };
 		5B13F3F420158000004C14AE /* AgilentB2987A.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B13F3F120158000004C14AE /* AgilentB2987A.m */; };
 		5B13F3F520158000004C14AE /* AgilentE4980A.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B13F3F320158000004C14AE /* AgilentE4980A.m */; };
 /* End PBXBuildFile section */
@@ -179,9 +176,6 @@
 		5B13F3D820157F63004C14AE /* Station_Cr_1_Humid.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Station_Cr_1_Humid.plist; sourceTree = "<group>"; };
 		5B13F3DA20157F63004C14AE /* Station_Cr_2_Humid.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Station_Cr_2_Humid.plist; sourceTree = "<group>"; };
 		5B13F3DC20157F63004C14AE /* Station_Cr_3_Humid.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Station_Cr_3_Humid.plist; sourceTree = "<group>"; };
-		5B13F3DE20157F63004C14AE /* Station_Ti_1_Humid.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Station_Ti_1_Humid.plist; sourceTree = "<group>"; };
-		5B13F3E020157F63004C14AE /* Station_Ti_2_Humid.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Station_Ti_2_Humid.plist; sourceTree = "<group>"; };
-		5B13F3E220157F63004C14AE /* Station_Ti_3_Humid.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Station_Ti_3_Humid.plist; sourceTree = "<group>"; };
 		5B13F3F020158000004C14AE /* AgilentB2987A.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgilentB2987A.h; sourceTree = "<group>"; };
 		5B13F3F120158000004C14AE /* AgilentB2987A.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgilentB2987A.m; sourceTree = "<group>"; };
 		5B13F3F220158000004C14AE /* AgilentE4980A.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgilentE4980A.h; sourceTree = "<group>"; };
@@ -315,9 +309,6 @@
 				5B13F3D820157F63004C14AE /* Station_Cr_1_Humid.plist */,
 				5B13F3DA20157F63004C14AE /* Station_Cr_2_Humid.plist */,
 				5B13F3DC20157F63004C14AE /* Station_Cr_3_Humid.plist */,
-				5B13F3DE20157F63004C14AE /* Station_Ti_1_Humid.plist */,
-				5B13F3E020157F63004C14AE /* Station_Ti_2_Humid.plist */,
-				5B13F3E220157F63004C14AE /* Station_Ti_3_Humid.plist */,
 				04A423DD1FA40D7F00838C6F /* Param.plist */,
 			);
 			path = Resource;
@@ -548,14 +539,11 @@
 				5029AB2D21171E6300F29AB9 /* Table.xib in Resources */,
 				5029AB2521171E6300F29AB9 /* ConfigInstr.xib in Resources */,
 				5B13F3E420157F63004C14AE /* Station_Cr_1_Humid.plist in Resources */,
-				5B13F3EA20157F63004C14AE /* Station_Ti_1_Humid.plist in Resources */,
-				5B13F3EE20157F63004C14AE /* Station_Ti_3_Humid.plist in Resources */,
 				5029AB2721171E6300F29AB9 /* FileConfigSet.xib in Resources */,
 				04A423A81FA360D500838C6F /* Assets.xcassets in Resources */,
 				04A423AB1FA360D500838C6F /* Main.storyboard in Resources */,
 				5029AA6D21171A0000F29AB9 /* .gitignore in Resources */,
 				5029AA6C21171A0000F29AB9 /* .cocoadocs.yml in Resources */,
-				5B13F3EC20157F63004C14AE /* Station_Ti_2_Humid.plist in Resources */,
 				5B13F3E820157F63004C14AE /* Station_Cr_3_Humid.plist in Resources */,
 				5B13F3E620157F63004C14AE /* Station_Cr_2_Humid.plist in Resources */,
 			);
